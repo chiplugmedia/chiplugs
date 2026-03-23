@@ -25,13 +25,19 @@ export function FlyerGallery() {
       {/* Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {FLYERS.map((flyer) => (
-          <img
+          <div
             key={flyer.src}
-            src={flyer.src}
-            alt={flyer.alt}
+            className="relative cursor-pointer rounded-xl overflow-hidden aspect-[4/5] w-full transition-transform duration-300 hover:scale-105"
             onClick={() => setSelected(flyer.src)}
-            className="cursor-pointer rounded-xl object-cover aspect-[4/5] w-full transition-transform duration-300 hover:scale-105"
-          />
+          >
+            <Image
+              src={flyer.src}
+              alt={flyer.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+            />
+          </div>
         ))}
       </div>
 
@@ -51,10 +57,12 @@ export function FlyerGallery() {
               ✕
             </button>
             <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-black">
-              <img
+              <Image
                 src={selected}
                 alt="Flyer preview"
-                className="w-full h-full object-contain"
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, 896px"
               />
             </div>
           </div>
