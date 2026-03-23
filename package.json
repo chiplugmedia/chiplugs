@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "config": {
+    "loglevel": "error"
+  },
   "dependencies": {
     "@portabletext/react": "^3.2.0",
     "@radix-ui/react-avatar": "^1.0.4",
