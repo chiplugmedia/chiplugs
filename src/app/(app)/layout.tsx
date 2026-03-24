@@ -6,6 +6,7 @@ import { getAuthorData } from "@/lib/data";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "../globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -95,6 +96,7 @@ export default async function RootLayout({
           <TooltipProvider delayDuration={0}>
             {children}
             <Navbar />
+            <Analytics />
           </TooltipProvider>
         </ThemeProvider>
       </body>
