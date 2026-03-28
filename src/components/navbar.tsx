@@ -100,8 +100,8 @@ export default async function Navbar() {
                     "size-12"
                   )}
                 >
-                  {typeof social.icon === 'function' ? (
-                    <social.icon />
+                  {typeof social.icon === 'function' && 'prototype' in social.icon && social.icon.prototype === undefined ? (
+                    (social.icon as () => JSX.Element)()
                   ) : (
                     <social.icon className="size-4" />
                   )}
