@@ -331,7 +331,7 @@ export const PROJECTS: Project[] = [
      
       {
         title: "View Project",
-        url: "#",
+        url: "https://retrywear.com",
         type: "demo",
       },
     ],
