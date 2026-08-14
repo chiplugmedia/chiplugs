@@ -310,28 +310,28 @@ export const PROJECTS: Project[] = [
   },
   {
     _id: "project-4",
-    title: "Cloud Infrastructure Dashboard",
+    title: "Retry",
     description: [
       {
         _type: "block",
         children: [
           {
             _type: "span",
-            text: "A comprehensive cloud management platform for monitoring, managing, and optimizing multi-cloud infrastructure. Features real-time metrics, cost analysis, automated scaling, and security compliance monitoring across AWS, Azure, and GCP.",
+            text: "Retry Clothing is a premium streetwear fashion brand offering stylish hoodies, tracksuits, pants, and modern apparel designed for confidence and everyday style. Shop the latest Retry collection.",
           },
         ],
       },
     ],
     image: {
       asset: {
-        url: "/projects/project-4.webp",
+        url: "/projects/retry.webp",
       },
     },
     links: [
      
       {
         title: "View Project",
-        url: "#",
+        url: "https://retrywear.com",
         type: "demo",
       },
     ],
