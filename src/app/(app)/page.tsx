@@ -9,9 +9,8 @@ import { FlyerGallery } from "@/components/flyer-gallery";
 import { portableTextToPlainText } from "@/lib/utils";
 import {
   getAuthorData,
-  getEducation,
-  getProjects,
   getWorkExperience,
+  getProjects,
 } from "@/lib/data";
 import { PortableText } from "@portabletext/react";
 import Link from "next/link";
@@ -22,15 +21,13 @@ export const dynamic = "force-static";
 export const revalidate = 604800; // 1 week
 
 export default async function Page() {
-  const [author, work, education, projects] = await Promise.all([
+  const [author, work, projects] = await Promise.all([
     getAuthorData(),
     getWorkExperience(),
-    getEducation(),
     getProjects(),
   ]);
 
   if (!author) return null;
-  
 
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
@@ -95,74 +92,89 @@ export default async function Page() {
   </div>
 </section>
 
-      
-      <section id="about">
-        <BlurFade delay={BLUR_FADE_DELAY * 3}>
-          <h2 className="text-xl font-bold">About</h2>
-        </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <div className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
-            <PortableText value={author.summary ?? []} />
-          </div>
-        </BlurFade>
-      </section>
-      <section id="work">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Work Experience</h2>
-          </BlurFade>
-          {work.map((item, id) => (
-            <BlurFade key={item._id} delay={BLUR_FADE_DELAY * 6 + id * 0.05}>
-              <ResumeCard
-                key={item._id}
-                logoUrl={item.logo?.asset?.url ?? ""}
-                altText={item.company ?? ""}
-                title={item.company ?? ""}
-                subtitle={item.title ?? ""}
-                href={item.url ?? ""}
-                period={`${item.startDate} - ${item.endDate ?? "Present"}`}
-                description={portableTextToPlainText(item.description!)}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section>
-      {/* <section id="education">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <h2 className="text-xl font-bold">Education</h2>
-          </BlurFade>
-          {education.map((item, id) => (
-            <BlurFade key={item._id} delay={BLUR_FADE_DELAY * 8 + id * 0.05}>
-              <ResumeCard
-                key={item._id}
-                href={item.url ?? ""}
-                logoUrl={item.logo?.asset?.url ?? ""}
-                altText={item.school ?? ""}
-                title={item.school ?? ""}
-                subtitle={item.degree ?? ""}
-                period={`${item.startDate} - ${item.endDate}`}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section> */}
-      <section id="skills">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
-          </BlurFade>
-          <div className="flex flex-wrap gap-1">
-            {author.skills?.map((skill, id) => (
-              <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-                <Badge key={skill}>{skill}</Badge>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
-      <CinematicSection />
+      <section id="about" className="max-w-6xl mx-auto px-4 space-y-6">
+  <BlurFade delay={BLUR_FADE_DELAY * 3}>
+    <h2 className="text-xl font-bold">About</h2>
+  </BlurFade>
 
+  <BlurFade delay={BLUR_FADE_DELAY * 4}>
+    <div className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
+      <PortableText value={author.summary ?? []} />
+    </div>
+  </BlurFade>
+</section>
+
+<section id="work" className="max-w-6xl mx-auto px-4">
+  <div className="flex flex-col gap-y-3">
+    <BlurFade delay={BLUR_FADE_DELAY * 5}>
+      <h2 className="text-xl font-bold">Work Experience</h2>
+    </BlurFade>
+
+    {work.map((item, id) => (
+      <BlurFade
+        key={item._id}
+        delay={BLUR_FADE_DELAY * 6 + id * 0.05}
+      >
+        <ResumeCard
+          logoUrl={item.logo?.asset?.url ?? ""}
+          altText={item.company ?? ""}
+          title={item.company ?? ""}
+          subtitle={item.title ?? ""}
+          href={item.url ?? ""}
+          period={`${item.startDate} - ${item.endDate ?? "Present"}`}
+          description={portableTextToPlainText(item.description!)}
+        />
+      </BlurFade>
+    ))}
+  </div>
+</section>
+
+{/* Education Section
+<section id="education" className="max-w-6xl mx-auto px-4">
+  <div className="flex flex-col gap-y-3">
+    <BlurFade delay={BLUR_FADE_DELAY * 7}>
+      <h2 className="text-xl font-bold">Education</h2>
+    </BlurFade>
+
+    {education.map((item, id) => (
+      <BlurFade
+        key={item._id}
+        delay={BLUR_FADE_DELAY * 8 + id * 0.05}
+      >
+        <ResumeCard
+          href={item.url ?? ""}
+          logoUrl={item.logo?.asset?.url ?? ""}
+          altText={item.school ?? ""}
+          title={item.school ?? ""}
+          subtitle={item.degree ?? ""}
+          period={`${item.startDate} - ${item.endDate}`}
+        />
+      </BlurFade>
+    ))}
+  </div>
+</section>
+*/}
+
+<section id="skills" className="max-w-6xl mx-auto px-4">
+  <div className="flex flex-col gap-y-4">
+    <BlurFade delay={BLUR_FADE_DELAY * 9}>
+      <h2 className="text-xl font-bold">Skills</h2>
+    </BlurFade>
+
+    <div className="flex flex-wrap gap-2">
+      {author.skills?.map((skill, id) => (
+        <BlurFade
+          key={skill}
+          delay={BLUR_FADE_DELAY * 10 + id * 0.05}
+        >
+          <Badge>{skill}</Badge>
+        </BlurFade>
+      ))}
+    </div>
+  </div>
+</section>
+
+<CinematicSection />
 
       
      <section
@@ -204,7 +216,6 @@ export default async function Page() {
                 delay={BLUR_FADE_DELAY * 12 + id * 0.05}
               >
                 <ProjectCard
-                  key={project._id}
                   title={project.title ?? ""}
                   description={project.description ?? []}
                   tags={project.technologies ?? []}
@@ -245,7 +256,7 @@ export default async function Page() {
 
   <div className="max-w-5xl mx-auto px-4 md:px-6">
     <BlurFade delay={BLUR_FADE_DELAY * 16}>
-      <div className="relative border border-border rounded-3xl shadow-l p-10 md:p-14 text-center space-y-6">
+      <div className="relative border border-border rounded-3xl shadow-lg p-10 md:p-14 text-center space-y-6">
 
         {/* Badge */}
         <span className="inline-flex items-center gap-2 rounded-full bg-foreground text-background px-4 py-1.5 text-xs font-bold tracking-widest uppercase shadow-md">
@@ -265,15 +276,15 @@ export default async function Page() {
 
         {/* Buttons */}
        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-  <Link
+  <a
     href={`mailto:${author.social?.email ?? ""}`}
     className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#fb7507] to-[#fb7507] text-black font-bold px-6 py-3 shadow-lg hover:shadow-xl hover:scale-[1.02] transition"
   >
     <i className="fas fa-envelope text-sm" />
     Email Me
-  </Link>
+  </a>
 
-  <Link
+  <a
     href="https://wa.me/message/ULBHK5KZZCQID1"
     target="_blank"
     rel="noopener noreferrer"
@@ -281,7 +292,7 @@ export default async function Page() {
   >
     <i className="fab fa-whatsapp text-sm" />
     WhatsApp
-  </Link>
+  </a>
 </div>
 
 
