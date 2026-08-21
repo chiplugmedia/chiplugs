@@ -16,17 +16,16 @@ export async function generateStaticParams() {
 export default async function ProjectPreviewPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>; // Updated to Promise for Next.js 15
 }) {
-  const project = await getProjectBySlug(params.slug);
+  const { slug } = await params; // Await params here
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     notFound();
   }
 
-  // Fallback check in case technologies are stored under tags or skills
-  const techList: string[] =
-    project.technologies || project.tags || project.skills || [];
+  const techList: string[] = project.technologies || [];
 
   return (
     <main className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
