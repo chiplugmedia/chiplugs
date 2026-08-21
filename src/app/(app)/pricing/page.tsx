@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/card";
 
 // Set your exchange rate here ($1 USD = X NGN)
-const EXCHANGE_RATE = 1400;
+const EXCHANGE_RATE = 1380;
 
 type Currency = "NGN" | "USD";
 
