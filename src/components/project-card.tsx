@@ -1,108 +1,134 @@
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText } from "@portabletext/react";
-import { Github, Globe } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { Eye, ArrowRight, Link as LinkIcon } from "lucide-react";
 
-interface Props {
+export interface ProjectLink {
   title: string;
-  href?: string;
-  description: any[];
-  tags: readonly string[];
-  link?: string;
-  image?: string;
+  url: string;
+  icon?: string;
+}
+
+export interface ProjectCardProps {
+  id: string;
+  title: string;
+  description: any;
+  tags: string[];
+  image: string;
   video?: string;
-  links?:
-    | {
-        title: string | null;
-        url: string | null;
-        type: string | null;
-      }[]
-    | null;
-  className?: string;
+  links?: ProjectLink[];
+  slug?: string;
 }
 
 export function ProjectCard({
+  id,
   title,
-  href,
   description,
   tags,
-  link,
   image,
-  video,
   links,
-  className,
-}: Props) {
+  slug,
+}: ProjectCardProps) {
+  const router = useRouter();
+  const previewUrl = `/projects/${slug || id}`;
+
   return (
-    <Card
-      className={
-        "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
-      }
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-background/50 dark:bg-zinc-900/40 backdrop-blur-md transition-colors hover:border-amber-500/40 hover:shadow-xl hover:shadow-amber-500/5"
     >
-      <Link
-        href={href || "#"}
-        className={cn("block cursor-pointer", className)}
+      {/* Clickable Image Container */}
+      <div
+        onClick={() => router.push(previewUrl)}
+        className="relative h-48 w-full cursor-pointer overflow-hidden bg-muted/40"
       >
-        <Image
-          src={image || ""}
-          alt={title}
-          width={500}
-          height={300}
-          className="h-40 w-full overflow-hidden object-cover object-top"
-        />
-      </Link>
-      <CardHeader className="px-2">
-        <div className="space-y-1">
-          <CardTitle className="mt-1 text-base">{title}</CardTitle>
-          <div className="hidden font-sans text-xs underline print:visible">
-            {link?.replace("https://", "").replace("www.", "").replace("/", "")}
+        {image ? (
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+            No Image Available
           </div>
-          <div className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
-            <PortableText value={description} />
+        )}
+
+        {/* Hover Overlay with Preview CTA */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
+          <span className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-4 py-2 text-xs font-semibold text-black shadow-lg transition-transform duration-300 group-hover:scale-105">
+            <Eye className="size-4" /> View Preview
+          </span>
+        </div>
+      </div>
+
+      {/* Content Body */}
+      <div className="flex flex-1 flex-col justify-between p-5">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <h3
+              onClick={() => router.push(previewUrl)}
+              className="cursor-pointer font-bold text-lg tracking-tight text-foreground transition-colors group-hover:text-amber-500"
+            >
+              {title}
+            </h3>
+          </div>
+
+          <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+            {typeof description === "string"
+              ? description
+              : Array.isArray(description)
+                ? description.join(" ")
+                : ""}
+          </p>
+        </div>
+
+        {/* Tags & External Links */}
+        <div className="mt-6 space-y-4">
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-md border border-border/40 bg-secondary/50 px-2.5 py-0.5 text-xs font-medium text-secondary-foreground"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div className="flex items-center justify-between pt-2 border-t border-border/30">
+            <Link
+              href={previewUrl}
+              className="inline-flex items-center gap-1 text-xs font-medium text-amber-500 hover:underline"
+            >
+              Details & Preview <ArrowRight className="size-3" />
+            </Link>
+
+            <div className="flex items-center gap-2">
+              {links?.map((link, idx) => (
+                <Link
+                  key={idx}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                >
+                  <LinkIcon className="size-4" />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-      </CardHeader>
-      <CardContent className="mt-auto flex flex-col px-2">
-        {tags && tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {tags?.map((tag) => (
-              <Badge
-                className="px-1 py-0 text-[10px]"
-                variant="secondary"
-                key={tag}
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )}
-      </CardContent>
-      <CardFooter className="px-2 pb-2">
-        {links && links.length > 0 && (
-          <div className="flex flex-row flex-wrap items-start gap-1">
-            {links?.map((link, idx) => (
-              <Link href={link?.url ?? ""} key={idx} target="_blank">
-                <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
-                  {link.type === "code" ? (
-                    <Github className="size-3" />
-                  ) : (
-                    <Globe className="size-3" />
-                  )}
-                  {link.title}
-                </Badge>
-              </Link>
-            ))}
-          </div>
-        )}
-      </CardFooter>
-    </Card>
+      </div>
+    </motion.div>
   );
 }

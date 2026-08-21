@@ -75,7 +75,7 @@ export interface Project {
 // Portfolio data
 export const AUTHOR: Author = {
   _id: "author-1",
-  name: "Chinemerem E Onyemachi",
+  name: "Chinemerem Onyemachi - Software Developer",
   initials: "CHI",
   avatar: {
     asset: {
@@ -227,6 +227,13 @@ export const PROJECTS: Project[] = [
   {
     _id: "project-1",
     title: "Pinatexlogs",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "Paystack API",
+    ],
     description: [
       {
         _type: "block",
@@ -244,7 +251,6 @@ export const PROJECTS: Project[] = [
       },
     },
     links: [
-  
       {
         title: "Live Demo",
         url: "https://pinatexlogs.com",
@@ -255,6 +261,7 @@ export const PROJECTS: Project[] = [
   {
     _id: "project-2",
     title: "BlinkTop",
+    technologies: ["PHP", "JavaScript", "Tailwind CSS", "MySQL", "VTU API"],
     description: [
       {
         _type: "block",
@@ -272,7 +279,6 @@ export const PROJECTS: Project[] = [
       },
     },
     links: [
-    
       {
         title: "View Project",
         url: "https://blinktop.com.ng",
@@ -283,6 +289,14 @@ export const PROJECTS: Project[] = [
   {
     _id: "project-3",
     title: "Blockchain Voting System",
+    technologies: [
+      "Solidity",
+      "Ethereum",
+      "React",
+      "Ethers.js",
+      "Hardhat",
+      "Tailwind CSS",
+    ],
     description: [
       {
         _type: "block",
@@ -300,7 +314,6 @@ export const PROJECTS: Project[] = [
       },
     },
     links: [
-     
       {
         title: "View Project",
         url: "#",
@@ -311,6 +324,13 @@ export const PROJECTS: Project[] = [
   {
     _id: "project-4",
     title: "Retry",
+    technologies: [
+      "Next.js",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Paystack API",
+      "PostgreSQL",
+    ],
     description: [
       {
         _type: "block",
@@ -328,7 +348,6 @@ export const PROJECTS: Project[] = [
       },
     },
     links: [
-     
       {
         title: "View Project",
         url: "https://retrywear.com",
@@ -339,6 +358,13 @@ export const PROJECTS: Project[] = [
   {
     _id: "project-5",
     title: "Creatorix",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Prisma",
+      "PostgreSQL",
+    ],
     description: [
       {
         _type: "block",
@@ -356,7 +382,6 @@ export const PROJECTS: Project[] = [
       },
     },
     links: [
-     
       {
         title: "View Project",
         url: "#",
@@ -365,4 +390,3 @@ export const PROJECTS: Project[] = [
     ],
   },
 ];
-

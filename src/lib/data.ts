@@ -25,4 +25,11 @@ export async function getEducation(): Promise<Education[]> {
 export async function getProjects(): Promise<Project[]> {
   return PROJECTS;
 }
+export async function getProjectBySlug(slug: string) {
+  const projects = await getProjects();
 
+  // Finds project by matching slug or _id
+  return projects.find(
+    (project: any) => project.slug?.current === slug || project._id === slug,
+  );
+}
