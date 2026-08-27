@@ -9,7 +9,14 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { getAuthorData } from "@/lib/data";
-import { GithubIcon, HomeIcon, MailIcon, XIcon, Tag } from "lucide-react";
+import {
+  GithubIcon,
+  HomeIcon,
+  MailIcon,
+  XIcon,
+  Tag,
+  FileText,
+} from "lucide-react";
 import Link from "next/link";
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -37,6 +44,7 @@ export default async function Navbar() {
   const navItems = [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/pricing", icon: Tag, label: "Pricing" },
+    { href: "/project/Resume.pdf", icon: FileText, label: "Resume" },
     {
       href: `mailto:${author?.social?.email || ""}`,
       icon: MailIcon,
@@ -77,6 +85,12 @@ export default async function Navbar() {
                 <TooltipTrigger asChild>
                   <Link
                     href={item.href}
+                    target={item.href.endsWith(".pdf") ? "_blank" : undefined}
+                    rel={
+                      item.href.endsWith(".pdf")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                     className={cn(
                       buttonVariants({
                         variant: "ghost",
