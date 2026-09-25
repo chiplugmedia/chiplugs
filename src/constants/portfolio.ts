@@ -389,4 +389,38 @@ export const PROJECTS: Project[] = [
       },
     ],
   },
+  {
+  _id: "project-6",
+  title: "Emmmar Motors & Logistics",
+  technologies: [
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "SQL",
+    "Responsive Design",
+  ],
+  description: [
+    {
+      _type: "block",
+      children: [
+        {
+          _type: "span",
+          text: "EMMMAR Motors is a transportation, logistics, and commercial operations company dedicated to delivering reliable solutions for businesses and individuals. Our platform supports transportation services, fleet management, vehicle acquisition, logistics coordination, import and export operations, and a wide range of commercial activities through a modern and professional digital experience. With practical industry expertise and a strong commitment to operational excellence, EMMMAR Motors focuses on providing efficient transportation and logistics solutions while promoting responsible business practices, effective asset utilization, and sustainable growth.",
+        },
+      ],
+    },
+  ],
+  image: {
+    asset: {
+      url: "/projects/emmmarapp.webp",
+    },
+  },
+  links: [
+    {
+      title: "View Project",
+      url: "https://emmmar.com",
+      type: "demo",
+    },
+  ],
+},
 ];

@@ -44,7 +44,7 @@ export default async function Navbar() {
   const navItems = [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/pricing", icon: Tag, label: "Pricing" },
-    { href: "/project/Resume.pdf", icon: FileText, label: "Resume" },
+    { href: "/projects/resume.pdf", icon: FileText, label: "Resume" },
     {
       href: `mailto:${author?.social?.email || ""}`,
       icon: MailIcon,
